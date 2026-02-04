@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Vaani</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins', sans-serif;
+}
+body{
+  background:black;
+  color:white;
+  overflow:hidden;
+}
+.page{
+  width:100vw;
+  height:100vh;
+  position:absolute;
+  top:0;left:0;
+  display:none;
+}
+.page.active{
+  display:flex;
+}
+
+/* ---------------- PAGE 1 ---------------- */
+#page1{
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  background:black;
+}
+
+.seed{
+  width:70px;
+  height:70px;
+  background:#ff3b6f;
+  border-radius:50%;
+  box-shadow:0 0 25px pink;
+  animation:pulse 2s infinite;
+}
+
+.tree{
+  width:300px;
+  height:300px;
+  border-radius:50%;
+  margin-top:20px;
+  display:none;
+  position:relative;
+}
+
+.flower{
+  position:absolute;
+  width:12px;
+  height:12px;
+  background:pink;
+  border-radius:50%;
+}
+
+.heartBtn{
+  display:none;
+  width:90px;
+  height:90px;
+  background:white;
+  margin-top:25px;
+  clip-path: polygon(
+    50% 85%,
+    0 40%,
+    25% 0,
+    50% 20%,
+    75% 0,
+    100% 40%
+  );
+}
+
+/* ---------------- PAGE 2 ---------------- */
+#page2{
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  background:black;
+}
+
+.rocket{
+  width:55px;
+  height:85px;
+  background:red;
+  clip-path: polygon(50% 0, 100% 60%, 50% 100%, 0 60%);
+}
+
+.fire{
+  position:absolute;
+  width:6px;
+  height:6px;
+  background:yellow;
+  border-radius:50%;
+  animation:blast 1s linear infinite;
+}
+
+.wish{
+  font-size:26px;
+  text-align:center;
+  margin-top:25px;
+  display:none;
+  color:#ffb3c6;
+}
+
+.next{
+  display:none;
+  margin-top:30px;
+  padding:12px 24px;
+  border:2px solid pink;
+  border-radius:30px;
+  color:pink;
+}
+
+/* ---------------- PAGE 3 ---------------- */
+#page3{
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  background:black;
+}
+
+video{
+  width:90%;
+  border-radius:20px;
+  z-index:2;
+  position:relative;
+}
+
+.fall{
+  position:absolute;
+  top:-20px;
+  font-size:18px;
+  animation:fall 5s linear infinite;
+  z-index:1;
+}
+
+/* ---------------- PAGE 4 ---------------- */
+#page4{
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:20px;
+  background:black;
+}
+
+.poem{
+  font-size:18px;
+  line-height:1.6;
+  color:#ffd6e0;
+}
+
+/* ---------------- ANIMATIONS ---------------- */
+@keyframes pulse{
+  0%{transform:scale(1)}
+  50%{transform:scale(1.1)}
+  100%{transform:scale(1)}
+}
+
+@keyframes blast{
+  to{transform:scale(8);opacity:0}
+}
+
+@keyframes fall{
+  to{transform:translateY(120vh);opacity:0}
+}
+</style>
+</head>
+
+<body>
+
+<!-- PAGE 1 -->
+<section id="page1" class="page active">
+  <div class="seed" onclick="growTree()"></div>
+  <div class="tree" id="tree"></div>
+  <div class="heartBtn" onclick="goPage(2)"></div>
+</section>
+
+<!-- PAGE 2 -->
+<section id="page2" class="page">
+  <div class="rocket" onclick="startFire()"></div>
+  <div class="wish" id="wishText">
+    🌸 Wish you a Happy Birthday Vaani 🌸
+  </div>
+  <div class="next" onclick="goPage(3)">
+    A small gift for my bestie 💝
+  </div>
+</section>
+
+<!-- PAGE 3 -->
+<section id="page3" class="page">
+  <video id="giftVideo" autoplay controls playsinline>
+    <source src="birthday-video.mp4" type="video/mp4">
+  </video>
+</section>
+
+<!-- PAGE 4 -->
+<section id="page4" class="page">
+  <div class="poem">
+    A hand to hold, a heart to share,<br>
+    A constant love that’s always there.<br>
+    Through every laugh and every tear,<br>
+    I’m glad to have a sister near 💖<br><br>
+    Wish you a Happy Birthday, Bestie 🎉
+  </div>
+</section>
+
+<script>
+function goPage(n){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page'+n).classList.add('active');
+}
+
+/* PAGE 1 TREE GROW */
+function growTree(){
+  const tree=document.getElementById('tree');
+  tree.style.display='block';
+  tree.style.background='radial-gradient(circle,#ffb3c6,#ff3b6f)';
+  for(let i=0;i<90;i++){
+    let f=document.createElement('div');
+    f.className='flower';
+    f.style.left=Math.random()*280+'px';
+    f.style.top=Math.random()*280+'px';
+    tree.appendChild(f);
+  }
+  document.querySelector('.heartBtn').style.display='block';
+}
+
+/* PAGE 2 FIREWORKS */
+function startFire(){
+  for(let i=0;i<35;i++){
+    let f=document.createElement('div');
+    f.className='fire';
+    f.style.left=Math.random()*100+'vw';
+    f.style.top=Math.random()*100+'vh';
+    document.body.appendChild(f);
+    setTimeout(()=>f.remove(),1000);
+  }
+  document.getElementById('wishText').style.display='block';
+  document.querySelector('.next').style.display='block';
+}
+
+/* PAGE 3 FALLING HEARTS */
+setInterval(()=>{
+  if(document.getElementById('page3').classList.contains('active')){
+    let e=document.createElement('div');
+    e.className='fall';
+    e.innerHTML=Math.random()>0.5?'💖':'🌸';
+    e.style.left=Math.random()*100+'vw';
+    document.body.appendChild(e);
+    setTimeout(()=>e.remove(),5000);
+  }
+},300);
+
+/* VIDEO END → PAGE 4 */
+document.getElementById('giftVideo').onended=()=>{
+  goPage(4);
+};
+</script>
+
+</body>
+</html>
